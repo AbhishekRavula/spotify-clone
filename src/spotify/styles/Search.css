@@ -1,0 +1,46 @@
+#field {
+    width: 50%;
+    border: 1px solid #DDDDDD;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: white;
+    /* background-image: url('https://download.flaticon.com/download/icon/93642?icon_id=93642&author=163&team=163&keyword=Magnifiying+Glass&pack=111811&style=Lineal&style_id=4&format=png&color=%23000000&colored=1&size=32&selection=1&premium=0&type=standard&token=03AGdBq26ZRD-lU-qZFySYsWECvQjvhKJcQflsY-2uDqLc1phxvQVtC3g_IyuNDttIYMyoPiaY_kNO5lb7fDO_iYL5ANnW9_JUki519nGp7PaaLErvDWvttu9rP_y1UY4uUmNFbj-E2w3PDYluUX9Aitsba5H3f7A_5k2r7KyOlDatDCyYLJhackLjd-cxQFwCsjVJp3Ns8EbK1ZP5NgzKflHxTLK1TF1or6qbbzp5MrHnB4jVVfen64aYaKgNFMRl9R6_hDFPSvcRJ5ovRGOWmcWg3xK86GnapkA0NS-GKIY4p2BXj9zzEpbNx401lMBBM1QwpZWtQwTwuej9Ylw8_SX-GWOSqDTscHuS6cv7_SHIwBLIQbzOI9-iVG1ai8MsePCpM4kwwrnNNVu7ou0Lq6IRfAYVtsbcmun1Hgk873obQdx1DL12wh2SuYHCUje-q0SRZrLKvvNoAdjZYnlxrjKhYWb9FkPzkqoQmwJwFGQzThaDYfsTytkknpPI58VtZKo-MYkgEu4SVywBpeG-2oGN2b1gt8FdYrtM5kEsTOR6Yc7Jt4YdZh0iCXyDS6vGPmDTUGwjkUfNMIRcgTORRAntlKNJ4kWwHvMAaKmb6AAooEHzmuwTECa5g5SC3etjgit81N_uIAmG828Gdln4Lmtdq6vV01brDIk99ZJhrHlghXmpxmHN6ktPIjZS4RK04ExoVsz1WqpfYWatIKphAQs3WPEdNkQ3Pl7q1Pxn_CKG5H_jiH0tI8jC022s02SRyT7I1P0sTwAOAVru34aX18e04x0gTveJYEYe9BUTL71o0nzDPI9oY7GfnDXr7HpusExvpsU_mRTGXqG2KP4d6Ut3wSnh2VSnAUpn1UuWlpqg7kR6zOaUJ73aaDrNTrLJI_wLeyRzX8qfiyAfj4rZvn92dwj2-o5J7Vrqm-DpedjnuS3forSmJ1jnOwj0S9mcCEm6c1DC_sQtx9ChLr1w4SG764VKJ7WUdjs4uRkR_8qmshZ5iC738l2cluaFN-w52jF_DmWV3lZOw-pO-GMspY6yXmI0sdj0bqWBUgHsyOvzolzh8Rv0sFKRC5IdrxLUsXKmD_NVtlGMoDYyo6qZc31B6qvxu8kjXQAv6vxzVIdjldyH3HvVGQdmMauh_5maCFVOL2CyqXl4&search=search&search=search&search=search'); */
+    background-position: 7px 5px; 
+    background-repeat: no-repeat;
+    padding-left: 55px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: 0.22s ease-in-out;
+    font-weight: 500;
+}
+#field:focus {
+    border: 4px solid rgba(255, 255, 255, 1);
+    outline: none;
+    box-shadow: 0px 0px 8px rgb(255, 255, 255);
+
+}
+
+#searchBody {
+    display: flex;
+    background-color: #2e2929;
+    /* min-height: 40px; */
+    margin-top: 10px;
+    width: 50%;
+    padding: 10px;
+    align-items:center;
+    cursor: pointer;
+}
+
+#searchItems {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+#search:hover {
+    background-color: #524f4f;
+}
+#searchItemSongArtists {
+    color: #B3B3B3;
+    font-size: 11px;
+}

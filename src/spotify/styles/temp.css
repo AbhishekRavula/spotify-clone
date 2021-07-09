@@ -1,0 +1,17 @@
+#outer {
+  background-color:grey;
+  width:232px;
+  height:232px;
+  display:flex;
+  flex-direction:column
+}
+#row {
+  display:flex
+}
+#block {
+  background-color:pink;
+  display:flex;
+  width:116px;
+  height:116px;
+  border:1px solid black
+}

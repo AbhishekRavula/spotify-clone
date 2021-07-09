@@ -1,0 +1,70 @@
+#footer_body {
+    color: white;
+    position: fixed;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    background-color: #181818;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+#footer_left {
+    flex: 0.3;
+    display: flex;
+    align-items: center;
+}
+
+#footer_songInfo {
+    color: #fff;
+    
+}
+
+#footer_songTitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* font-size: 14px; */
+}
+
+#footer_songArtists {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #B3B3B3;
+    font-size: 11px;
+}
+#footer_albumCover {
+    height: 50px;
+    width: 50px;
+    margin-right: 20px;
+    object-fit: contain;
+}
+#footer_center {
+    flex: 0.4;
+    padding: 0 100px;
+    display: flex;
+    /* align-items:flex-start; */
+    justify-content: center;
+    flex-direction: column;
+    /* max-width: 300px; */
+}
+#footer_center_controls {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#footer_center_slider {
+    display: flex;
+    justify-content: space-around;
+}
+/* #footer_center_slider::before {
+    content: "3.30";
+}
+#footer */
+#footer_right {
+    flex: 0.3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+} 

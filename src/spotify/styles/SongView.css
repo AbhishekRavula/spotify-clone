@@ -1,0 +1,61 @@
+#song {
+    display:flex;
+    background-color: #121212;
+    margin-bottom: 5px;
+    transition: 0.25s;
+    border-radius: 4px;
+    /* max-width: 78%; */
+    height: 40px;
+    align-items: center;
+    /* justify-content:space-between; */
+}
+
+#songNamenArtists {
+    flex: 0.35;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+
+    /* display: flex; */
+    /* justify-content: left; */
+}
+
+#songArtists {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #B3B3B3;
+    font-size: 11px;
+}
+#songAlbum {
+    flex: 0.35;
+}
+
+#songActions {
+    display: flex;
+    flex:0.28;
+    justify-content: space-around;
+}
+
+#song:hover {
+    background-color: #2A2A2A;
+}
+#numberOrIcon {
+    display: flex;
+    flex: 0.02;
+    padding: 8px;
+    align-items: center;
+}
+
+#song:hover #playPauseIcon {
+    display: block;
+}
+#song:hover #songNumber {
+    display: none;
+}
+#playPauseIcon {
+    display: none;
+}
+#songNumber {
+    display: block;
+}
