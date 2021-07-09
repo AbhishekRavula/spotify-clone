@@ -101,7 +101,6 @@ class WelcomeHome extends Component {
                     <Footer currentPlayingSong={this.state.currentPlayingSong} playState={this.state.playState}
                         updatePlayState={this.updatePlayState}
                     />
-                    <audio id="globalAudio"/>
                 </div>
             </Router>
         )
