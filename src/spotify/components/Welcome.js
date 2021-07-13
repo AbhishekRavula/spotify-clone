@@ -45,13 +45,13 @@ class WelcomeHome extends Component {
     }
 
     setUserToken = (tokenKey, username) => {
-        console.log('userToken',);
+        console.log('userToken')
         this.setState({ token: tokenKey, username: username })
     }
 
 
     render() {
-        console.log('token', this.state.token)
+        // console.log('token', this.state.token)
         return (
             <Router>
                 <div id="body">
@@ -101,6 +101,7 @@ class WelcomeHome extends Component {
                     <Footer currentPlayingSong={this.state.currentPlayingSong} playState={this.state.playState}
                         updatePlayState={this.updatePlayState}
                     />
+                    <audio id="globalAudio" />
                 </div>
             </Router>
         )

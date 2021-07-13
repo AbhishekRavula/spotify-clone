@@ -1,58 +1,10 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import '../styles/PlaylistView.css';
 import Song from './SongView';
 import Search from './Search';
 import PlaylistHeader from './PlaylistHeader'
 import EditPlaylistDetailsModal, { handleOpen } from '../libs/EditPlaylistDetailsModal';
 import '../styles/temp.css';
-
-// import handleOpen from '../libs/EditPlaylistDetailsModal'
-
-// function IsUserPlaylist(props) {
-//     console.log('created_by', props.created_by)
-//     return (
-//         props.created_by === "SpotifyAdmin" ? <SpotifyPlaylistView {...props} /> : <UserPlaylistView {...props} />
-//     )
-// }
-
-
-// class SpotifyPlaylistView extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             currentPlayingSong: null
-//         }
-//     }
-
-//     changeCurrentPlayingSong = (song) => {
-//         this.setState({ currentPlayingSong: song })
-//         this.props.updateCurrentPlayingSong(song);
-//     }
-
-//     render() {
-//         return (
-//             <div>
-//                 <PlaylistHeader {...this.props}/>
-//                 <div>
-//                     {this.props.music.map((song, index) => {
-//                         console.log(song)
-//                         return (
-//                             <div>
-//                                 <Song key={song} song={song} index={index + 1} {...this.props}
-//                                     changeCurrentPlayingSong={this.changeCurrentPlayingSong} currentPlayingSong={this.state.currentPlayingSong}
-//                                     updatePlayState={this.props.updatePlayState} playState={this.props.playState}
-//                                 />
-//                             </div>
-//                         )
-//                     })}  
-//                 </div>
-//             </div>
-//         )
-//     }
-
-// }
-
-
 
 
 
@@ -67,6 +19,8 @@ function PlaylistView(props) {
     const [created_by] = useState(props.created_by)
     const [open, setOpen] = useState(false);
     const token = localStorage.getItem('token')
+    const [currentSongSrc, setcurrentSongSrc] = useState("")
+    // let audio = document.getElementById("globalAudio")
 
     function updateMusicData(data, remove) { //adds new music to playlist
         console.log("updated", data)
@@ -124,13 +78,13 @@ function PlaylistView(props) {
                 return response.json()
             })
             .then(json => {
-                console.log(json);
-                console.log(json.id);
-                setname(json.name);
-                setimage(json.image);
-                setdescription(json.description);
+                console.log(json)
+                console.log(json.id)
+                setname(json.name)
+                setimage(json.image)
+                setdescription(json.description)
             });
-        handleClose();
+        handleClose()
     }
 
     const setPlaylistName = (newName) => {
@@ -140,12 +94,11 @@ function PlaylistView(props) {
         setdescription(newDesc)
     }
 
-
     return (
         <div>
             {console.log("playlistView name", name)}
-            <PlaylistHeader key={props.id} handleOpen={props.created_by !== 'SpotifyAdmin' && handleOpen} name={name} image={image} description={description}
-                created_by={created_by} />
+            <PlaylistHeader key={props.id} handleOpen={handleOpen} name={name} image={image} description={description}
+                created_by={created_by} created_by={props.created_by}/>
             <div style={{ display: 'flex', marginLeft: "10px", color: "#9A9B9C", marginTop: "20px" }}>
                 <div id="ash">#</div>
                 <div id="title">Title</div>
@@ -156,9 +109,10 @@ function PlaylistView(props) {
                     return (
                         <div>
                             {/* {console.log("index", index)} */}
-                            <Song song={song} index={index + 1}
+                            <Song song={song} index={index + 1} noOfSongs={musicData.length}
                                 changeCurrentPlayingSong={changeCurrentPlayingSong} currentPlayingSong={currentPlayingSong}
                                 updatePlayState={props.updatePlayState} playState={props.playState} updateMusicData={updateMusicData}
+                                currentSongIndex={props.currentSongIndex}
                             />
                         </div>
                     )

@@ -10,7 +10,7 @@ import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 
 let useClickOutside = (handler) => { // custom hook defination
     let domNode = useRef()
-    console.log("usedd")
+    // console.log("usedd")
     useEffect(() => {
         // console.log("renderingggg")
         let eventHandler = (event) => {
@@ -65,7 +65,7 @@ function SideNav(props) {
     }
 
     useEffect(() => {
-        console.log('sideNav useEffected')
+        // console.log('sideNav useEffected')
         fetch('http://127.0.0.1:8000/playlists/library/', requestOptions)
             .then(response => {
                 return response.json()
@@ -80,7 +80,7 @@ function SideNav(props) {
     }, [visibleContextMenu])
 
     const handlePlaylistContextMenu = (event, id) => {
-        console.log('right clicked', event.clientX, event.clientY, id)
+        // console.log('right clicked', event.clientX, event.clientY, id)
         event.preventDefault();
         setvisibleContextMenu(true)
         setcontextMenu({
@@ -91,7 +91,7 @@ function SideNav(props) {
     }
 
     const changeVisibleContextMenu = () => {
-        console.log("changeVisible called")
+        // console.log("changeVisible called")
         setvisibleContextMenu(false)
     }
 
@@ -108,13 +108,13 @@ function SideNav(props) {
                 <li onClick={() => history.push('/collection/musics')}><FavoriteRoundedIcon /> Liked Songs</li>
             </ul>
             <hr style={{ color: "rgb(255, 255, 255)", marginLeft: "25px", marginRight: "25px" }} />
-            <ul id="sideNav">
+            {/* <ul id="sideNav">
                 {userPlaylistNames && userPlaylistNames.map(playlist => {
                     return <li key={playlist.id} onContextMenu={(e) => handlePlaylistContextMenu(e, playlist.id)}
                         style={{ fontWeight: "600" }}
                         onClick={() => history.push(`/playlists/${playlist.id}`)}>{playlist.name}</li>
                 })}
-            </ul>
+            </ul> */}
             {visibleContextMenu && <PlaylistContextMenu contextMenu={contextMenu} changeVisibleContextMenu={changeVisibleContextMenu} />}
         </div>
     )

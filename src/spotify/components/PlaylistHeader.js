@@ -4,15 +4,14 @@ import '../styles/temp.css';
 
 
 function PlaylistHeader(props) {
-
     return (
         <>
             <div id="playlistHeader">
-                <img id="image" onClick={props.handleOpen} src={props.image} alt="playlistCover"></img>
+                <img id="image" onClick={() => props.created_by != "SpotifyAdmin" && props.handleOpen()} src={props.image} alt="playlistCover"></img>
                 <div id="playlistHeaderData">
                     <p id="playlist">PLAYLIST</p>
-                    <h1 onClick={props.handleOpen}>{props.name}</h1>
-                    <div id="playlistDescription" onClick={props.handleOpen}>{props.description}</div>
+                    <h1 onClick={() => props.created_by != "SpotifyAdmin" && props.handleOpen()}>{props.name}</h1>
+                    <div id="playlistDescription" onClick={() => props.created_by != "SpotifyAdmin" && props.handleOpen()}>{props.description}</div>
                     <div>{props.created_by}</div>
                 </div>
             </div>

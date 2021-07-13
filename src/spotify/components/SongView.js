@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useCallback } from 'react';
 import { play, pause, resume } from '../libs/globalAudio'
 import '../styles/SongView.css'
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -7,6 +7,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { audios } from '../libs/globalAudio'
+// import {songPlaying, playNext, playPrev} from '../libs/cutsomEvents'
 
 
 
@@ -31,13 +32,72 @@ function PlayPauseIcon(props) {
 
 
 function Song(props) {
-    // console.log("song rendered")
+    console.log("song rendered")
     const [songData, setsongData] = useState(null)
     const [isPlaying, setisPlaying] = useState(false)
     let token = localStorage.getItem('token')
-    // var audio = null
+    let audio = document.getElementById("globalAudio")
+
+
+    const onPlaySong = () => {
+        setisPlaying(audio.src == songData.music_path)
+    }
+    const onPauseSong = () => {
+        console.log("onPauseSong");
+        setisPlaying(false)
+    }
+
+    const handleNext = (e) => {
+        console.log("handleNext", props.index, e.detail.currentIndex);
+        if ((e.detail.currentIndex + 1 <= props.noOfSongs) && (props.index == e.detail.currentIndex + 1)) {
+            console.log("handleNext true", props.index)
+            onSongClick()
+        }
+    }
+
+    const handlePrev = (e) => {
+        console.log("handlePrev")
+        if ((e.detail.currentIndex - 1) && (props.index == e.detail.currentIndex - 1)) {
+            console.log("handlePrev true", props.index)
+            onSongClick()
+        }
+    }
+
+    const playShuffle = (e) => {
+        if (e.detail.index == props.index) {
+            console.log("playshuffle", props.index, e.detail.index)
+            onSongClick()
+        }
+    }
 
     useEffect(() => {
+        if (songData) {
+
+            // console.log("Registering events for song: ", songData.id);
+            audio.addEventListener('play', onPlaySong)
+            // audio.addEventListener('play', log);
+            audio.addEventListener('pause', onPauseSong)
+
+            document.addEventListener("playNext", handleNext)
+            document.addEventListener("playPrev", handlePrev)
+            document.addEventListener("playShuffleNext", playShuffle)
+
+
+
+            // returned function will be called on component unmount 
+            return () => {
+                audio.removeEventListener('play', onPlaySong)
+                audio.removeEventListener('pause', onPauseSong)
+                // audio.removeEventListener('play', log);
+                document.removeEventListener("playNext", handleNext)
+                document.removeEventListener("playPrev", handlePrev)
+            }
+        }
+    }, [songData]);
+
+
+    useEffect(() => {
+        // console.log("Useeffect to fetch song");
         fetch(props.song, { //song api
             "headers": {
                 "Authorization": `Token ${token}`
@@ -46,28 +106,21 @@ function Song(props) {
             .then((response) => {
                 return response.json();
             })
-            .then((myJson) => {
-                audios.currentPlaylistSongsSources[props.index - 1] = {
-                    name: myJson.name,
-                    artists: myJson.artist,
-                    music_path: myJson.music_path,
-                    cover: myJson.album.image,
-                    // audio: new Audio(myJson.music_path)
-                }
-                setsongData(myJson)
+            .then((jsonData) => {
+                // audios.currentPlaylistSongsSources[props.index - 1] = {
+                //     name: myJson.name,
+                //     artists: myJson.artist,
+                //     music_path: myJson.music_path,
+                //     cover: myJson.album.image,
+                //     // audio: new Audio(myJson.music_path)
+                // }
+                // audio.src = myJson.music_path
+                setsongData(jsonData)
             })
             .catch(err => {
                 console.error(err);
             })
     }, [])
-
-
-    useEffect(() => {
-        console.log("songView effected", audios.currentSource.id)
-        if (audios.currentSource.id != props.index - 1 && isPlaying) {
-            setisPlaying(false)
-        }
-    }, [audios.currentSource])
 
 
     const likeMusic = (songData) => {
@@ -112,23 +165,64 @@ function Song(props) {
 
 
     const onSongClick = () => {
-
-        console.log("song")
-        if (audios.currentSource.id === props.index - 1) {
-            console.log('same id');
-            audios.currentSource.audio.paused ? resume() : pause()
-            props.updatePlayState('resume');
+        console.log("song clicked")
+        if (audio.src == songData.music_path) {
+            console.log("if", audio.paused)
+            audio.paused ? audio.play() : audio.pause()
+            // if (audio.paused) {
+            //     let playProm = audio.play()
+            //     console.log("play prom", playProm)
+            // }
+            // else {
+            //     let pauseProm = audio.pause()
+            //     console.log("pause prom", pauseProm)
+            // }
         }
         else {
-            // console.log("linkkkkkkkkkk", audios.currentPlaylistSongsSources[props.index - 1])
-            play(props.index - 1);
-            props.changeCurrentPlayingSong(songData)
-            props.updatePlayState('play');
+            console.log("else")
+            // audio.currentTime = 0
+            console.log("audio paused", audio.paused)
+            audio.pause()
+            // console.log("pause prom", pauseprom)
+            //     .then(promise => {
+            //         console.log("pause", promise)
+            //     })
+            //     .catch(err => {
+            //         console.log("pause err", err)
+            //     })
+            // if (audio.src) {
+            //     audio.pause()
+            //     console.log("audio pauseddddddddd")
+            // }
+            audio.src = songData.music_path
+            // setTimeout(() => {
+            //     audio.play()
+            // }, 150)
+            // audio.load()
+            audio.play()
+            // .catch(err => {
+            //     console.log("err", err)
+            // })
+            // let playProm = audio.play()
+            // playProm.then(_ => {
+            //     console.log("promise", audio.paused)
+            // })
+            // .catch(err => {
+            //     console.log("err", err)
+            // })
+                // console.log("play prom", playProm)
+            audio.loop = audio.loop ? false : audio.loop
+            let songPlaying = new CustomEvent("songPlaying", {
+                detail: {
+                    name: songData.name,
+                    artists: songData.artist,
+                    cover: songData.album.image,
+                    index: props.index
+                }
+            })
+            document.dispatchEvent(songPlaying)
         }
-        setisPlaying(!isPlaying)
     }
-
-
 
     return (
         <div id="song">
@@ -140,7 +234,7 @@ function Song(props) {
                     <PlayPauseIcon  {...props} songData={songData} />
                 </div> */}
                 {/* {console.log(audios.currentSource.id, props.index - 1)} */}
-                {(audios.currentSource.id == props.index - 1) && isPlaying ? <img width="15" src="https://open.scdn.co/cdn/images/equaliser-animated-green.73b73928.gif"
+                {props.index == props.currentSongIndex ? <img width="15" src="https://open.scdn.co/cdn/images/equaliser-animated-green.73b73928.gif"
                     alt="playingGif" /> : props.index}
             </div>
             <div id="songNamenArtists" onClick={onSongClick}>
