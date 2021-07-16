@@ -1,23 +1,17 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Playlist } from './Playlist';
 import Grid from '../libs/Grid';
-import NavContainer from './NavContainer';
-import CustomizedSlider from '../libs/temp';
 
 
-function AllPlaylist() {
-
-    console.log('allplaylist called')
+function AllPlaylists() {
 
     const [AllPlaylistData, setAllPlaylistData] = useState([])
     const token = localStorage.getItem('token')
 
 
     useEffect(() => {
-
         fetch("http://127.0.0.1:8000/playlists/", {
             "headers": {
-                // "Authorization": "Basic YWJoaToxMjM0"
                 "Authorization": `Token ${token}`
             }
         })
@@ -25,9 +19,7 @@ function AllPlaylist() {
                 return response.json();
             })
             .then((myJson) => {
-                // this.setState({ AllPlaylistData: myJson });
                 setAllPlaylistData(myJson)
-                // console.log('json',myJson);
             })
             .catch(err => {
                 console.error(err);
@@ -44,8 +36,4 @@ function AllPlaylist() {
     )
 }
 
-export default AllPlaylist;
-
-// Reusability
-// Modularity
-// 
+export default AllPlaylists

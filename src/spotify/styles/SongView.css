@@ -4,10 +4,8 @@
     margin-bottom: 5px;
     transition: 0.25s;
     border-radius: 4px;
-    /* max-width: 78%; */
     height: 40px;
     align-items: center;
-    /* justify-content:space-between; */
 }
 
 #songNamenArtists {
@@ -15,9 +13,6 @@
     display: flex;
     flex-direction: column;
     cursor: pointer;
-
-    /* display: flex; */
-    /* justify-content: left; */
 }
 
 #songArtists {
@@ -27,6 +22,7 @@
     color: #B3B3B3;
     font-size: 11px;
 }
+
 #songAlbum {
     flex: 0.35;
 }
@@ -40,22 +36,10 @@
 #song:hover {
     background-color: #2A2A2A;
 }
+
 #numberOrIcon {
     display: flex;
     flex: 0.02;
     padding: 8px;
     align-items: center;
-}
-
-#song:hover #playPauseIcon {
-    display: block;
-}
-#song:hover #songNumber {
-    display: none;
-}
-#playPauseIcon {
-    display: none;
-}T
-#songNumber {
-    display: block;
 }

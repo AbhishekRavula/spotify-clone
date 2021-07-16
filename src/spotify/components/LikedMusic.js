@@ -5,9 +5,7 @@ import Song from './SongView'
 function LikedMusic(props) {
     const [updated, setupdated] = useState(false)
     const [musicData, setmusicData] = useState([]);
-    const [currentPlayingSong, setcurrentPlayingSong] = useState(null);
     const token = localStorage.getItem('token')
-
 
     const requestOptions = {
         method: 'GET',
@@ -15,13 +13,12 @@ function LikedMusic(props) {
     }
 
     useEffect(() => {
-        console.log('effected')
+        
         fetch('http://127.0.0.1:8000/musics/liked/', requestOptions)
             .then(response => {
                 return response.json()
             })
             .then(jsonData => {
-                console.log('jsonData', jsonData)
                 setmusicData(jsonData)
             })
             .catch(err => {
@@ -30,33 +27,29 @@ function LikedMusic(props) {
     }, [updated])
 
     function updateLikedMusicData() {
-        console.log('here')
-        // setmusicData(newMusicData);
         setupdated(!updated)
-    }
-
-    const changeCurrentPlayingSong = (song) => {
-        setcurrentPlayingSong(song);
-        props.footerCurrentSongDetails(song);
     }
 
     return (
         <div>
             <div id="playlistHeader">
-                <img id="image" src="" alt="playlistCover"></img>
+                <img id="image" src="https://i.pinimg.com/originals/db/f0/98/dbf098866a153bc938dce016f180e397.jpg" alt="playlistCover"></img>
                 <div id="playlistHeaderData">
                     <p id="playlist">PLAYLIST</p>
                     <h1>Liked Songs</h1>
-                    <p>something</p>
+                    <p>your fav's</p>
                 </div>
+            </div>
+            <div style={{ display: 'flex', marginLeft: "10px", color: "#9A9B9C", marginTop: "20px" }}>
+                <div id="ash">#</div>
+                <div id="title">Title</div>
+                <div id="album">Album</div>
             </div>
             {musicData.map((song, index) => {
                 return (
                     <div>
-                        {/* {console.log(index, song.url)} */}
-                        <Song key={song.id} song={song.url} index={index + 1}
-                            changeCurrentPlayingSong={changeCurrentPlayingSong} currentPlayingSong={currentPlayingSong} updateLikedMusicData={updateLikedMusicData}
-                            updatePlayState={props.updatePlayState} playState={props.playState} updateMusicData={props.updateMusicData}
+                        <Song key={song.id} song={song.url} index={index + 1} updateLikedMusicData={updateLikedMusicData}
+                            playState={props.playState} updateMusicData={props.updateMusicData}
                         />
                     </div>
                 )

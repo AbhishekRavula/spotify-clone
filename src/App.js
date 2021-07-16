@@ -1,25 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import WelcomeHome from './spotify/components/Welcome'
+import UserAuthenticate from './spotify/components/UserAuthenticate'
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  let token = localStorage.getItem("token")
 
-export default App;
+  return (
+    token ? <WelcomeHome/> : <UserAuthenticate/>
+  )
+}
+export default App

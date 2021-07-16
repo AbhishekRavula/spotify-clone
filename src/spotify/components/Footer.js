@@ -7,17 +7,14 @@ import ShuffleIcon from '@material-ui/icons/Shuffle';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import { Grid, Slider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
-import { pause, resume, play, audios } from '../libs/globalAudio';
 import RepeatOneIcon from '@material-ui/icons/RepeatOne';
-import { ContactSupport, FormatColorResetRounded, FormatListBulletedTwoTone } from '@material-ui/icons';
 
 
-function Footer(props) {
-    // const [songChanged, setsongChanged] = useState(false)
+function Footer() {
+
     const [shuffle, setshuffle] = useState(false)
     const [currentSongDetails, setcurrentSongDetails] = useState(null)
     const [currentPlaylistShuffleList, setcurrentPlaylistShuffleList] = useState(null)
@@ -26,29 +23,11 @@ function Footer(props) {
         noOfSongs: 0
     })
     const [shuffleListIndex, setshuffleListIndex] = useState(0)
-    console.log("footer rendered", currentPlaylistShuffleList)
-    //     name: null,
-    //     cover: null,
-    //     artists :null,
-    //     index: null
-    // })
     const [isPlaying, setisPlaying] = useState(false)
     const [repeat, setrepeat] = useState(false)
     const [isaudio, setisaudio] = useState(false)
     localStorage.setItem("volume", 80)
     let audio = document.getElementById("globalAudio")
-
-
-    // const toggleResumePause = () => {
-    //     if (props.playState === 'pause') {
-    //         props.updatePlayState('pause')
-    //         pause()
-    //     }
-    //     else {
-    //         props.updatePlayState('resume')
-    //         resume()
-    //     }
-    // }
 
     const useStyles = makeStyles({
         root: {
@@ -57,51 +36,7 @@ function Footer(props) {
     });
     const classes = useStyles();
 
-
-
-    // const skipPrevNextSong = (next) => {
-    //     if (next) {
-
-    //     }
-    //     else {
-    //         let playPrev = new CustomEvent("playPrev", { detail: { currentIndex: currentSongDetails.index } })
-    //         document.dispatchEvent(playPrev)
-    //     }
-    // let indexOfCurrentSong = audios.currentSource.id
-    // indexOfCurrentSong = (indexOfCurrentSong + 1 === audios.currentPlaylistSongsSources.length) ? -1 : indexOfCurrentSong
-    // next ? play(indexOfCurrentSong + 1) : (indexOfCurrentSong - 1) < 0 ? play(0) : play(indexOfCurrentSong - 1)
-    // console.log("skip", audios.currentSource.id)
-    // setsongChanged(!songChanged)
-    // }
-
-    // let noOfPlaylistSongs = audios.currentPlaylistSongsSources.length
-
-    // const getShuffledMusicIndexes = () => {
-    //     let shuffledIndexes = []
-    //     while (shuffledIndexes.length != noOfPlaylistSongs) {
-    //         let newIndex = Math.floor(Math.random() * noOfPlaylistSongs)
-    //         !shuffledIndexes.includes(newIndex) && shuffledIndexes.push(newIndex)
-    //     }
-    //     console.log(shuffledIndexes)
-    //     return shuffledIndexes
-    // }
-
-    // let shuffledIndexesList = getShuffledMusicIndexes()
-
-    // const skipPrevNextShuffleList = (shuffledIndexesList) => {
-    //     console.log("unshifted", shuffledIndexesList)
-    //     play(shuffledIndexesList[0])
-    //     shuffledIndexesList.push(shuffledIndexesList.shift())
-    //     console.log("shifted", shuffledIndexesList)
-    // shuffledIndexesList = shuffledIndexesList.length <= 0 ? getShuffledMusicIndexes() : shuffledIndexesList
-    // }
-
-    // useEffect(() => { // sets footer song details
-    //     console.log("footer current source changed")
-    //     setsongChanged(!songChanged)
-    // }, [audios.currentSource])
     let footerSongInfo = (e) => {
-        // console.log("songPlaying event triggered", e.detail)
         setrepeat(false)
         setcurrentSongDetails({
             name: e.detail.name,
@@ -110,7 +45,6 @@ function Footer(props) {
             index: e.detail.index
         })
         setisPlaying(true)
-        // console.log("handleEvent",isaudio, !isaudio)
         setisaudio(!isaudio)
     }
 
@@ -124,9 +58,7 @@ function Footer(props) {
 
 
     const footerPlayPause = (play) => {
-        // console.log("playpause clicked", play, audio.src)
         play ? audio.play() : audio.pause()
-        // setisPlaying(!isPlaying)
     }
     const loopControl = (loop) => {
         if (loop) {
@@ -139,17 +71,14 @@ function Footer(props) {
         }
     }
     const handlePlay = () => {
-        console.log("footer play")
         setisPlaying(true)
     }
     const handlePause = () => {
-        console.log("footer pause")
         setisPlaying(false)
     }
 
     const playNextSong = () => {
         let playNext = new CustomEvent("playNext", { detail: { currentIndex: currentSongDetails.index } })
-        console.log("dispatched", currentSongDetails.index)
         document.dispatchEvent(playNext)
     }
     const playPreviousSong = () => {
@@ -158,11 +87,6 @@ function Footer(props) {
     }
 
     useEffect(() => { // 
-        console.log("okokko", isaudio)
-        // if (audio) {
-        //     console.log("if inner")
-        //     audio.addEventListener("ended", () => isPlaying ? setisPlaying(false) : setisPlaying(isPlaying))
-        // }
         if (audio) {
             audio.addEventListener("play", handlePlay)
             audio.addEventListener("pause", handlePause)
@@ -184,12 +108,10 @@ function Footer(props) {
                 shuffleList.push(newIndex)
             }
         }
-        // console.log("shuffleList", shuffleList)
         return shuffleList
     }
 
     const handleNoOfPlaylistSongs = (e) => {
-        console.log("newPlaylist", e.detail.noOfSongs)
         if (currentPlaylist.id != e.detail.playlistId) {
             setcurrentPlaylist({
                 noOfSongs: e.detail.noOfSongs,
@@ -212,7 +134,6 @@ function Footer(props) {
 
 
     const playShuffleNextSong = () => {
-        console.log("shuffle next", shuffleListIndex)
         if (shuffleListIndex < currentPlaylist.noOfSongs) {
             let playShuffleNext = new CustomEvent("playShuffleNext", { detail: { index: currentPlaylistShuffleList[shuffleListIndex] } })
             document.dispatchEvent(playShuffleNext)
@@ -221,7 +142,6 @@ function Footer(props) {
     }
 
     const handleShuffle = () => {
-        console.log("handleShuffle")
         setcurrentPlaylistShuffleList(getShuffleList(currentPlaylist.noOfSongs))
         setshuffle(!shuffle)
     }
@@ -250,9 +170,6 @@ function Footer(props) {
             </div>
             <div id="footer_right">
                 <Grid container className={classes.root} spacing={2}>
-                    <Grid item>
-                        <PlaylistPlayIcon />
-                    </Grid>
                     <VolumeControl />
                 </Grid>
             </div>
@@ -271,7 +188,6 @@ function VolumeControl() {
     let audio = document.getElementById("globalAudio")
 
     const handleVolume = (event, newVolume) => {
-        // console.log("volume", audios.currentPlaylistSongsSources)
         if (newVolume) {
             setmute(false)
             setseekvolume(newVolume)
@@ -299,7 +215,7 @@ function VolumeControl() {
 }
 
 
-function SongProgressBar(props) {
+function SongProgressBar() {
 
     const [seekValue, setseekValue] = useState(0);
     const [currentSongTime, setcurrentSongTime] = useState("00:00")
@@ -309,7 +225,6 @@ function SongProgressBar(props) {
     let audio = document.getElementById("globalAudio")
 
     const handleSeek = (event, newValue) => {
-        // console.log("Seek", audio)
         audio.currentTime = (audio.duration / 100) * newValue
         setseekValue(newValue);
     }
@@ -334,7 +249,6 @@ function SongProgressBar(props) {
     }, [playing])
 
     useEffect(() => {
-        // console.log("seek useEffected", currentSongDuration);
         if (audio) {
             audio.addEventListener("timeupdate", () => {
                 setplaying(true)
@@ -345,7 +259,6 @@ function SongProgressBar(props) {
                 setcurrentSongTime("00:00")
                 setseekValue(0)
                 setplaying(false)
-                // props.toggleResumePause()
             })
             audio.addEventListener("durationchange", () => {
                 setplaying(!playing)
@@ -355,9 +268,8 @@ function SongProgressBar(props) {
 
     return (
         <>
-            {/* {console.log("slide renderred", currentSongTime)} */}
             <div>{currentSongTime}</div>
-            <div style={{ width: "500px" }}>
+            <div id="seekbar">
                 <Grid container>
                     <Grid item xs>
                         <Slider value={seekValue} onChange={handleSeek} aria-labelledby="continuous-slider" />
@@ -368,42 +280,3 @@ function SongProgressBar(props) {
         </>
     )
 }
-
-// export default SongProgressBar
-
-
-// const [audio] = useState(new Audio("https://s5.as05210315.pw/2103152315/tedv95der9zdns/Sarrainodu%20-%20%282016%29/[iSongs.info]%2006%20-%20Sarrainodu.mp3"));
-
- // return (
-    //     <div id="footer_body">
-    //         <div id="footer_left">
-    //             <img id="footer_albumCover" src={props.currentPlayingSong ? props.currentPlayingSong.album.image : ""} alt="cover" />
-    //             <div id="footer_songInfo">
-    //                 <strong id="footer_songTitle">{props.currentPlayingSong ? props.currentPlayingSong.name : ""}</strong>
-    //                 <div id="footer_songArtists">{props.currentPlayingSong ? props.currentPlayingSong.artist.join(", ") : ""}</div>
-    //             </div>
-    //         </div>
-    //         <div id="footer_center">
-    //             <div id="footer_center_controls">
-    //                 <ShuffleIcon id="footer_green" />
-    //                 <SkipPreviousIcon onClick={() => { skipPrevNextSong(false) }} />
-    //                 {props.playState === 'play' &&
-    //                     <PlayCircleOutlineIcon id="footer_icon" fontSize="large" onClick={toggleResumePause} />}
-    //                 {props.playState === 'pause' && <PauseCircleOutlineIcon id="footer_icon" fontSize="large" onClick={toggleResumePause} />}
-    //                 <SkipNextIcon onClick={() => { skipPrevNextSong(true) }} />
-    //                 <RepeatControl />
-    //             </div>
-    //             <div id="footer_center_slider">
-    //                 <SongProgressBar toggleResumePause={toggleResumePause} />
-    //             </div>
-    //         </div>
-    //         <div id="footer_right">
-    //             <Grid container className={classes.root} spacing={2}>
-    //                 <Grid item>
-    //                     <PlaylistPlayIcon />
-    //                 </Grid>
-    //                 <VolumeControl />
-    //             </Grid>
-    //         </div>
-    //     </div>
-    // )

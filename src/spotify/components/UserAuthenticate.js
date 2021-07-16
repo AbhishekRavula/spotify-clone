@@ -45,9 +45,10 @@ function UserAuthenticate(props) {
                     console.log('logg')
                     localStorage.setItem("token", json.token)
                     localStorage.setItem("username", json.username)
-                    props.setUserToken(localStorage.getItem('token'), localStorage.getItem('username'))
+                    // props.setUserToken(localStorage.getItem('token'), localStorage.getItem('username'))
                     console.log("aipoindhi");
-                    history.push('/')
+                    // history.push('/')
+                    window.location.reload()
                 }
             })
             .catch(err => {
@@ -102,8 +103,9 @@ export function Logout(props) {
         console.log("logout called")
         localStorage.removeItem('token')
         localStorage.removeItem('username')
-        props.setUserToken(null)
-        history.push('/login')
+        window.location.href='/'
+        // props.setUserToken(null)
+        // history.push('/login')
     }
 
     return (

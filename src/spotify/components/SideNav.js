@@ -10,9 +10,7 @@ import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 
 let useClickOutside = (handler) => { // custom hook defination
     let domNode = useRef()
-    // console.log("usedd")
     useEffect(() => {
-        // console.log("renderingggg")
         let eventHandler = (event) => {
             if (domNode.current && !domNode.current.contains(event.target)) {
                 handler()
@@ -23,8 +21,7 @@ let useClickOutside = (handler) => { // custom hook defination
     return domNode
 }
 
-function SideNav(props) {
-    // console.log('sideNav rendered')
+function SideNav() {
     const [userPlaylistNames, setuserPlaylistNames] = useState(null)
     const history = useHistory()
     const token = localStorage.getItem('token')
@@ -34,7 +31,6 @@ function SideNav(props) {
         posY: 0,
         playlistId: null
     })
-
 
     function routeNewPlaylist() {
         const requestOptions = {
@@ -65,13 +61,11 @@ function SideNav(props) {
     }
 
     useEffect(() => {
-        // console.log('sideNav useEffected')
         fetch('http://127.0.0.1:8000/playlists/library/', requestOptions)
             .then(response => {
                 return response.json()
             })
             .then(json => {
-                // console.log('jsonnnnn', json)
                 setuserPlaylistNames(json)
             })
             .catch(err => {
@@ -80,7 +74,6 @@ function SideNav(props) {
     }, [visibleContextMenu])
 
     const handlePlaylistContextMenu = (event, id) => {
-        // console.log('right clicked', event.clientX, event.clientY, id)
         event.preventDefault();
         setvisibleContextMenu(true)
         setcontextMenu({
@@ -91,14 +84,13 @@ function SideNav(props) {
     }
 
     const changeVisibleContextMenu = () => {
-        // console.log("changeVisible called")
         setvisibleContextMenu(false)
     }
 
 
 
     return (
-        <div>
+        <div id="left_nav">
             <ul id="sideNav">
                 <li onClick={() => history.push('/')}><img id="sideNav_logo" src="http://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg" alt="logo"></img></li>
                 <li onClick={() => history.push('/')}><HomeRoundedIcon /> Home</li>
@@ -108,13 +100,13 @@ function SideNav(props) {
                 <li onClick={() => history.push('/collection/musics')}><FavoriteRoundedIcon /> Liked Songs</li>
             </ul>
             <hr style={{ color: "rgb(255, 255, 255)", marginLeft: "25px", marginRight: "25px" }} />
-            {/* <ul id="sideNav">
+            <ul id="sideNav">
                 {userPlaylistNames && userPlaylistNames.map(playlist => {
                     return <li key={playlist.id} onContextMenu={(e) => handlePlaylistContextMenu(e, playlist.id)}
                         style={{ fontWeight: "600" }}
                         onClick={() => history.push(`/playlists/${playlist.id}`)}>{playlist.name}</li>
                 })}
-            </ul> */}
+            </ul>
             {visibleContextMenu && <PlaylistContextMenu contextMenu={contextMenu} changeVisibleContextMenu={changeVisibleContextMenu} />}
         </div>
     )
@@ -144,14 +136,9 @@ function PlaylistContextMenu(props) {
     }
 
     const deletePlaylist = (id, changeVisibleContextMenu) => {
-        console.log('delete called', id)
-
         fetch(`http://127.0.0.1:8000/playlists/${id}/`, deleteRequestOptions)
             .then(response => {
-                // return response.json()
-                console.log('response', response)
                 if (response.status === 204) {
-                    console.log("yes")
                     changeVisibleContextMenu()
                 }
             })
@@ -161,13 +148,11 @@ function PlaylistContextMenu(props) {
     }
 
     let domNode = useClickOutside(() => { // custom hook
-        console.log("use")
         props.changeVisibleContextMenu(false)
     })
 
     return (
         <div style={contextMenuStyle} ref={domNode} >
-            <li id="contextMenuItem">Edit</li>
             <li id="contextMenuItem" onClick={() => deletePlaylist(props.contextMenu.playlistId, props.changeVisibleContextMenu)}>Delete</li>
         </div>
     )

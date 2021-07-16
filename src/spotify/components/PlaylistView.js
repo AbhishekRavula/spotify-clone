@@ -1,31 +1,60 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import '../styles/PlaylistView.css';
 import Song from './SongView';
 import Search from './Search';
 import PlaylistHeader from './PlaylistHeader'
-import EditPlaylistDetailsModal, { handleOpen } from '../libs/EditPlaylistDetailsModal';
-import '../styles/temp.css';
-
+import EditPlaylistDetailsModal from '../libs/EditPlaylistDetailsModal';
 
 
 function PlaylistView(props) {
-    
-    // console.log('propss', props.music)
-    const [musicData, setmusicData] = useState(props.music)
-    const [currentPlayingSong, setcurrentPlayingSong] = useState(null);
-    const [image, setimage] = useState(props.image);
-    const [name, setname] = useState(props.name);
-    const [description, setdescription] = useState(props.description);
-    const [created_by] = useState(props.created_by)
+
+    const [musicData, setmusicData] = useState([])
+    const [name, setname] = useState(null);
+    const [description, setdescription] = useState(null);
+    const [created_by, setcreated_by] = useState(null)
     const [open, setOpen] = useState(false);
     const token = localStorage.getItem('token')
-    const [currentSongSrc, setcurrentSongSrc] = useState("")
-    // let audio = document.getElementById("globalAudio")
+    const { id } = useParams();
+    const [playlistData, setPlaylistData] = useState(null);
+
+    useEffect(() => {
+        fetch(`http://127.0.0.1:8000/playlists/${id}/`, {
+            "headers": {
+                "Authorization": `Token ${token}`
+            },
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((jsonData) => {
+                setPlaylistData(jsonData);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }, [id]);
+
+    useEffect(() => {
+        if (playlistData) {
+            setname(playlistData.name)
+            setdescription(playlistData.description)
+            setcreated_by(playlistData.created_by)
+            setmusicData(playlistData.music)
+        }
+    }, [playlistData])
+
+    useEffect(() => {
+        if (playlistData) {
+            let newPlaylist = new CustomEvent("newPlaylist", { detail: { noOfSongs: playlistData.music.length, playlistId: id } })
+            document.dispatchEvent(newPlaylist)
+        }
+    }, [playlistData])
+
 
     function updateMusicData(data, remove) { //adds new music to playlist
-        console.log("updated", data)
+
         musicData.push(data)
-        console.log(musicData)
         const requestOptions = {
             method: "PATCH",
             headers: { "Content-Type": "application/json", "Authorization": `Token ${token}` },
@@ -34,23 +63,16 @@ function PlaylistView(props) {
                 remove_music: remove
             })
         }
-        console.log("here")
-        fetch(`http://127.0.0.1:8000/playlists/${props.id}/`, requestOptions)
+        fetch(`http://127.0.0.1:8000/playlists/${playlistData.id}/`, requestOptions)
             .then(response => {
                 return response.json()
             })
             .then(json => {
-                console.log("music", json)
                 setmusicData(json.music)
             })
             .catch(err => {
                 console.log(err)
             })
-    }
-
-    const changeCurrentPlayingSong = (song) => {
-        setcurrentPlayingSong(song);
-        props.footerCurrentSongDetails(song);
     }
 
     function handleOpen() {
@@ -68,20 +90,16 @@ function PlaylistView(props) {
             headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${token}` },
             body: JSON.stringify({
                 name: name,
-                image: image,
                 description: description,
                 created_by: props.created_by
             })
         };
-        fetch(`http://127.0.0.1:8000/playlists/${props.id}/`, requestOptions)
+        fetch(`http://127.0.0.1:8000/playlists/${playlistData.id}/`, requestOptions)
             .then((response) => {
                 return response.json()
             })
             .then(json => {
-                console.log(json)
-                console.log(json.id)
                 setname(json.name)
-                setimage(json.image)
                 setdescription(json.description)
             });
         handleClose()
@@ -96,38 +114,27 @@ function PlaylistView(props) {
 
     return (
         <div>
-            {console.log("playlistView name", name)}
-            <PlaylistHeader key={props.id} handleOpen={handleOpen} name={name} image={image} description={description}
-                created_by={created_by} created_by={props.created_by}/>
+            <PlaylistHeader handleOpen={handleOpen} name={name} image={playlistData && playlistData.image} description={description} created_by={created_by} />
             <div style={{ display: 'flex', marginLeft: "10px", color: "#9A9B9C", marginTop: "20px" }}>
                 <div id="ash">#</div>
                 <div id="title">Title</div>
                 <div id="album">Album</div>
             </div>
             <div>
-                {musicData && musicData.map((song, index) => {
+                {musicData.map((song, index) => {
                     return (
                         <div>
-                            {/* {console.log("index", index)} */}
-                            <Song song={song} index={index + 1} noOfSongs={musicData.length}
-                                changeCurrentPlayingSong={changeCurrentPlayingSong} currentPlayingSong={currentPlayingSong}
-                                updatePlayState={props.updatePlayState} playState={props.playState} updateMusicData={updateMusicData}
-                                currentSongIndex={props.currentSongIndex}
-                            />
+                            <Song song={song} index={index + 1} noOfSongs={musicData.length} updateMusicData={updateMusicData} />
                         </div>
                     )
                 })}
                 {props.created_by !== 'SpotifyAdmin' && <h5>Let's Find Some Songs For Your Playlist</h5>}
-                <EditPlaylistDetailsModal key={props.id} image={image} setPlaylistDescription={setPlaylistDescription} open={open} handleOpen={handleOpen} handleClose={handleClose}
-                    setPlaylistName={setPlaylistName} savePlaylistDetails={savePlaylistDetails} />
-                {props.created_by !== 'SpotifyAdmin' && <Search add={true} footerCurrentSongDetails={props.footerCurrentSongDetails} {...props} updateMusicData={updateMusicData}
-                    updatePlayState={props.updatePlayState} playlistId={props.id} />}
+                <EditPlaylistDetailsModal image={playlistData && playlistData.image} setPlaylistDescription={setPlaylistDescription} open={open} handleOpen={handleOpen} handleClose={handleClose}
+                    setPlaylistName={setPlaylistName} savePlaylistDetails={savePlaylistDetails} {...playlistData} />
+                {props.created_by !== 'SpotifyAdmin' && <Search add={true} {...props} updateMusicData={updateMusicData} />}
             </div>
         </div>
     )
 }
 
-// export default IsUserPlaylist
-export default PlaylistView;
-
-// Basic YWJoaToxMjM0"
+export default PlaylistView

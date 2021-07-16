@@ -1,61 +1,41 @@
 #playlistHeader {
     display: flex;
 }
+
 #image {
     width: 232px;
     height: 232px;
 }
+
 #playlistHeaderData {
     display: flex;
-    /* margin-top: auto; */
     align-self:flex-end;
     flex-direction: column;
     white-space: nowrap;
     padding-left: 20px;
 }
+
 #playlistHeaderData h1{
     font-size: 50px;
 }
+
 #playlistDescription {
     color: rgb(255, 255, 255, 0.75);
 }
+
 #playlist {
     font-weight: 700;
     margin-bottom: 0;
 }
+
 #ash {
     flex:0.03
 }
+
 #title {
     flex:0.35
 }
+
 #album {
     flex:0.35
 }
-
-/* color: '#9A9B9C'color: '#9A9B9C' */
-
-/* #body {
-  background-color:grey;
-  width:232px;
-  height:232px;
-  display:flex;
-  flex-direction:column
-}
-#row {
-  display:flex
-}
-#block {
-  background-color:pink;
-  display:flex;
-  width:116px;
-  height:116px;
-  border:1px solid black
-} */
-/* 
-#test {
-    width:232px;
-    height:232px;
-    background-color: cadetblue;
-    object-fit: contain;
-} */

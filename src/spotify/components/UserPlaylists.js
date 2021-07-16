@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Grid from '../libs/Grid'
 import Playlist from './Playlist'
 
+
 function UserPlaylists() {
 
     const [playlists, setplaylists] = useState(null)
@@ -30,13 +31,11 @@ function UserPlaylists() {
 
     return (
         <div>
-            {console.log('rendered', playlists)}
             <Grid>
                 {playlists && playlists.map(playlistData => {
                     return <Playlist key={playlistData.id} {...playlistData} />
                 })}
             </Grid>
-
         </div>
     )
 }
