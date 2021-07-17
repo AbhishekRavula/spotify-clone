@@ -6,6 +6,7 @@ function LikedMusic(props) {
     const [updated, setupdated] = useState(false)
     const [musicData, setmusicData] = useState([]);
     const token = localStorage.getItem('token')
+    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
     const requestOptions = {
         method: 'GET',
@@ -14,7 +15,7 @@ function LikedMusic(props) {
 
     useEffect(() => {
         
-        fetch('http://127.0.0.1:8000/musics/liked/', requestOptions)
+        fetch(HOSTNAME + 'musics/liked/', requestOptions)
             .then(response => {
                 return response.json()
             })

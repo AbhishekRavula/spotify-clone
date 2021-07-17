@@ -31,6 +31,7 @@ function SideNav() {
         posY: 0,
         playlistId: null
     })
+    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
     function routeNewPlaylist() {
         const requestOptions = {
@@ -38,7 +39,7 @@ function SideNav() {
             headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${token}` },
             body: JSON.stringify({ name: "My Playlist", description: "My Playlist Description" })
         };
-        fetch('http://127.0.0.1:8000/playlists/', requestOptions)
+        fetch(HOSTNAME + 'playlists/', requestOptions)
             .then((response) => {
                 return response.json()
             })
@@ -59,7 +60,7 @@ function SideNav() {
     }
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/playlists/library/', requestOptions)
+        fetch(HOSTNAME + 'playlists/library/', requestOptions)
             .then(response => {
                 return response.json()
             })
@@ -116,6 +117,7 @@ function SideNav() {
 function PlaylistContextMenu(props) {
 
     const token = localStorage.getItem('token')
+    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
     const contextMenuStyle = {
         "position": "absolute",
@@ -134,7 +136,7 @@ function PlaylistContextMenu(props) {
     }
 
     const deletePlaylist = (id, changeVisibleContextMenu) => {
-        fetch(`http://127.0.0.1:8000/playlists/${id}/`, deleteRequestOptions)
+        fetch(HOSTNAME + `playlists/${id}/`, deleteRequestOptions)
             .then(response => {
                 if (response.status === 204) {
                     changeVisibleContextMenu()

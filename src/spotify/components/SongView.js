@@ -19,6 +19,7 @@ function Song(props) {
     const [isPlaying, setisPlaying] = useState(false)
     let token = localStorage.getItem('token')
     let audio = document.getElementById("globalAudio")
+    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
 
     const onPlaySong = () => {
@@ -89,7 +90,7 @@ function Song(props) {
             method: "GET",
             headers: { "Content-Type": "application/json", "Authorization": `Token ${token}` }
         }
-        fetch(`http://127.0.0.1:8000/musics/${songData.id}/like/`, requestOptions)
+        fetch(HOSTNAME + `musics/${songData.id}/like/`, requestOptions)
             .then(response => {
                 return response.json()
             })
@@ -107,7 +108,7 @@ function Song(props) {
             method: "GET",
             headers: { "Content-Type": "application/json", "Authorization": `Token ${token}` }
         }
-        fetch(`http://127.0.0.1:8000/musics/${songData.id}/unlike/`, requestOptions)
+        fetch(HOSTNAME + `musics/${songData.id}/unlike/`, requestOptions)
             .then(response => {
                 return response.json()
             })

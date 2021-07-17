@@ -9,9 +9,10 @@ function Search(props) {
     const [searchTerm, setsearchTerm] = useState("")
     const token = localStorage.getItem('token')
     let audio = document.getElementById("globalAudio")
+    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/musics/", {
+        fetch(HOSTNAME + "musics/", {
             headers: {
                 "Authorization": `Token ${token}`,
                 "Content-type": "application/json"

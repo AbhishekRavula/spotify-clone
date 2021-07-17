@@ -7,6 +7,7 @@ function UserPlaylists() {
 
     const [playlists, setplaylists] = useState(null)
     const token = localStorage.getItem('token')
+    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
     const requestOptions = {
         method: 'GET',
@@ -17,7 +18,7 @@ function UserPlaylists() {
     }
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/playlists/library/', requestOptions)
+        fetch(HOSTNAME + 'playlists/library/', requestOptions)
             .then(response => {
                 return response.json()
             })

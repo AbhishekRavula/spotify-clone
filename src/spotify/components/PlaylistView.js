@@ -17,9 +17,10 @@ function PlaylistView(props) {
     const token = localStorage.getItem('token')
     const { id } = useParams();
     const [playlistData, setPlaylistData] = useState(null);
+    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
     useEffect(() => {
-        fetch(`http://127.0.0.1:8000/playlists/${id}/`, {
+        fetch(HOSTNAME + `playlists/${id}/`, {
             "headers": {
                 "Authorization": `Token ${token}`
             },
@@ -63,7 +64,7 @@ function PlaylistView(props) {
                 remove_music: remove
             })
         }
-        fetch(`http://127.0.0.1:8000/playlists/${playlistData.id}/`, requestOptions)
+        fetch(HOSTNAME + `playlists/${playlistData.id}/`, requestOptions)
             .then(response => {
                 return response.json()
             })
@@ -94,7 +95,7 @@ function PlaylistView(props) {
                 created_by: props.created_by
             })
         };
-        fetch(`http://127.0.0.1:8000/playlists/${playlistData.id}/`, requestOptions)
+        fetch(HOSTNAME + `playlists/${playlistData.id}/`, requestOptions)
             .then((response) => {
                 return response.json()
             })

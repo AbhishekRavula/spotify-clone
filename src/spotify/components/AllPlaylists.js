@@ -7,10 +7,11 @@ function AllPlaylists() {
 
     const [AllPlaylistData, setAllPlaylistData] = useState([])
     const token = localStorage.getItem('token')
+    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/playlists/", {
+        fetch(HOSTNAME + "playlists/", {
             "headers": {
                 "Authorization": `Token ${token}`
             }

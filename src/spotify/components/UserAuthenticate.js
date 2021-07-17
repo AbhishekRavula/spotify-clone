@@ -24,7 +24,6 @@ function UserAuthenticate(props) {
 
     function login() {
 
-
         fetch(HOSTNAME + 'token/', requestOptions)
             .then(response => {
                 return response.json()
@@ -49,7 +48,7 @@ function UserAuthenticate(props) {
 
     const register = () => {
 
-        fetch('http://localhost:8000/users/', requestOptions)
+        fetch( HOSTNAME + 'users/', requestOptions)
             .then(response => {
                 return response.json()
             })
