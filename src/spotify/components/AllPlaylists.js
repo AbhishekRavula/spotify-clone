@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Playlist } from './Playlist';
 import Grid from '../libs/Grid';
+import { HOSTNAME } from '../spotify.constants.js'
 
 
 function AllPlaylists() {
 
     const [AllPlaylistData, setAllPlaylistData] = useState([])
     const token = localStorage.getItem('token')
-    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
 
     useEffect(() => {

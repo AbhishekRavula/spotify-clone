@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useHistory, Redirect } from 'react-router-dom';
 import '../styles/Welcome.css'
 import Button from '@material-ui/core/Button';
+import { HOSTNAME } from '../spotify.constants.js'
 
 
 function UserAuthenticate(props) {
@@ -9,7 +10,6 @@ function UserAuthenticate(props) {
     const [username, setusername] = useState("")
     const [password, setpassword] = useState(null)
     const history = useHistory()
-    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
     const token = localStorage.getItem('token')
 
     const requestOptions = {
@@ -24,7 +24,7 @@ function UserAuthenticate(props) {
 
     function login() {
 
-        fetch(HOSTNAME + 'token/', requestOptions)
+        fetch(process.env.HOSTNAME + 'token/', requestOptions)
             .then(response => {
                 return response.json()
             })

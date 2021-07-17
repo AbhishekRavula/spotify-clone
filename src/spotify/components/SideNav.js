@@ -6,6 +6,7 @@ import SearchRoundedIcon from '@material-ui/icons/SearchRounded';
 import LibraryMusicRoundedIcon from '@material-ui/icons/LibraryMusicRounded';
 import PlaylistAddRoundedIcon from '@material-ui/icons/PlaylistAddRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
+import { HOSTNAME } from '../spotify.constants.js'
 
 
 let useClickOutside = (handler) => { // custom hook defination
@@ -31,7 +32,6 @@ function SideNav() {
         posY: 0,
         playlistId: null
     })
-    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
     function routeNewPlaylist() {
         const requestOptions = {
@@ -117,7 +117,6 @@ function SideNav() {
 function PlaylistContextMenu(props) {
 
     const token = localStorage.getItem('token')
-    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
     const contextMenuStyle = {
         "position": "absolute",

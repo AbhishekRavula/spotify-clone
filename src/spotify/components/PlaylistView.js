@@ -5,6 +5,7 @@ import Song from './SongView';
 import Search from './Search';
 import PlaylistHeader from './PlaylistHeader'
 import EditPlaylistDetailsModal from '../libs/EditPlaylistDetailsModal';
+import { HOSTNAME } from '../spotify.constants.js'
 
 
 function PlaylistView(props) {
@@ -17,7 +18,6 @@ function PlaylistView(props) {
     const token = localStorage.getItem('token')
     const { id } = useParams();
     const [playlistData, setPlaylistData] = useState(null);
-    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
     useEffect(() => {
         fetch(HOSTNAME + `playlists/${id}/`, {

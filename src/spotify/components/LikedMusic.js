@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../styles//PlaylistView.css';
 import Song from './SongView'
+import { HOSTNAME } from '../spotify.constants.js'
 
 function LikedMusic(props) {
     const [updated, setupdated] = useState(false)
     const [musicData, setmusicData] = useState([]);
     const token = localStorage.getItem('token')
-    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
     const requestOptions = {
         method: 'GET',

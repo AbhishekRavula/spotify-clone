@@ -27,6 +27,8 @@ function UpNav() {
 
 function WelcomeHome() {
 
+    console.log(process.env)
+
     return (
         <Router>
             <div id="body">

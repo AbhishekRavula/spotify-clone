@@ -3,8 +3,7 @@ import '../styles/SongView.css'
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-
-
+import { HOSTNAME } from '../spotify.constants.js'
 
 function IsLikedIcon(props) {
     if (props.songData.liked) {
@@ -19,7 +18,6 @@ function Song(props) {
     const [isPlaying, setisPlaying] = useState(false)
     let token = localStorage.getItem('token')
     let audio = document.getElementById("globalAudio")
-    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
 
     const onPlaySong = () => {

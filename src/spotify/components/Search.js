@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import '../styles/Search.css';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import Button from '@material-ui/core/Button';
+import { HOSTNAME } from '../spotify.constants.js'
 
 
 function Search(props) {
@@ -9,7 +10,6 @@ function Search(props) {
     const [searchTerm, setsearchTerm] = useState("")
     const token = localStorage.getItem('token')
     let audio = document.getElementById("globalAudio")
-    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
 
     useEffect(() => {
         fetch(HOSTNAME + "musics/", {
