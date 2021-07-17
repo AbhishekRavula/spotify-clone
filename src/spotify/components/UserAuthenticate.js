@@ -2,16 +2,14 @@ import React, { useState } from 'react'
 import { useHistory, Redirect } from 'react-router-dom';
 import '../styles/Welcome.css'
 import Button from '@material-ui/core/Button';
-import reactDom from 'react-dom';
-// import IsLoggedIn from './index'
 
 
 function UserAuthenticate(props) {
 
-    console.log("user Authenticate called")
     const [username, setusername] = useState("")
     const [password, setpassword] = useState(null)
     const history = useHistory()
+    const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
     const token = localStorage.getItem('token')
 
     const requestOptions = {
@@ -26,28 +24,20 @@ function UserAuthenticate(props) {
 
     function login() {
 
-        console.log(username, password)
 
-        fetch('http://localhost:8000/token/', requestOptions)
+        fetch(HOSTNAME + 'token/', requestOptions)
             .then(response => {
                 return response.json()
             })
             .then(json => {
-                console.log('login', json)
-                console.log(json.non_field_errors)
                 if (json.non_field_errors) {
                     alert(
                         "Invalid credentials, please retry,\nIf you are a new user, please register"
                     )
                 }
                 else if (json.token) {
-                    console.log('logged in', json.token)
-                    console.log('logg')
                     localStorage.setItem("token", json.token)
                     localStorage.setItem("username", json.username)
-                    // props.setUserToken(localStorage.getItem('token'), localStorage.getItem('username'))
-                    console.log("aipoindhi");
-                    // history.push('/')
                     window.location.reload()
                 }
             })
@@ -61,11 +51,9 @@ function UserAuthenticate(props) {
 
         fetch('http://localhost:8000/users/', requestOptions)
             .then(response => {
-                console.log('response', response)
                 return response.json()
             })
             .then(json => {
-                console.log('register', json)
                 if (json === "A user with that username already exists.") {
                     alert(json)
                 }
@@ -100,12 +88,9 @@ export function Logout(props) {
     const history = useHistory()
 
     const logout = () => {
-        console.log("logout called")
         localStorage.removeItem('token')
         localStorage.removeItem('username')
         window.location.href='/'
-        // props.setUserToken(null)
-        // history.push('/login')
     }
 
     return (

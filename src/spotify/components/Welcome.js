@@ -25,45 +25,39 @@ function UpNav() {
 }
 
 
-class WelcomeHome extends Component {
+function WelcomeHome() {
 
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <Router>
-                <div id="body">
-                    <SideNav />
-                    <div id="side_content">
-                        <UpNav />
-                        <div id="content">
-                            <Switch>
-                                <Route exact path='/'>
-                                    <AllPlaylists />
-                                </Route>
-                                <Route exact path="/search">
-                                    <Search />
-                                </Route>
-                                <Route exact path="/playlists/:id">
-                                    <PlaylistView />
-                                </Route>
-                                <Route exact path="/collection/musics">
-                                    <LikedMusic />
-                                </Route>
-                                <Route exact path="/collection/playlists">
-                                    <UserPlaylists />
-                                </Route>
-                            </Switch>
-                        </div>
+    return (
+        <Router>
+            <div id="body">
+                <SideNav />
+                <div id="side_content">
+                    <UpNav />
+                    <div id="content">
+                        <Switch>
+                            <Route exact path='/'>
+                                <AllPlaylists />
+                            </Route>
+                            <Route exact path="/search">
+                                <Search />
+                            </Route>
+                            <Route exact path="/playlists/:id">
+                                <PlaylistView />
+                            </Route>
+                            <Route exact path="/collection/musics">
+                                <LikedMusic />
+                            </Route>
+                            <Route exact path="/collection/playlists">
+                                <UserPlaylists />
+                            </Route>
+                        </Switch>
                     </div>
-                    <Footer />
-                    <audio id="globalAudio" />
                 </div>
-            </Router>
-        )
-    }
+                <Footer />
+                <audio id="globalAudio" />
+            </div>
+        </Router>
+    )
 }
 
 export default WelcomeHome
