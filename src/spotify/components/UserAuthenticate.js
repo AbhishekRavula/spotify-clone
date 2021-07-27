@@ -5,12 +5,10 @@ import Button from '@material-ui/core/Button';
 import { HOSTNAME } from '../spotify.constants.js'
 
 
-function UserAuthenticate(props) {
+function UserAuthenticate() {
 
     const [username, setusername] = useState("")
     const [password, setpassword] = useState(null)
-    const history = useHistory()
-    const token = localStorage.getItem('token')
 
     const requestOptions = {
         method: 'POST',
@@ -23,7 +21,7 @@ function UserAuthenticate(props) {
 
 
     function login() {
-        
+
         fetch(HOSTNAME + 'token/', requestOptions)
             .then(response => {
                 return response.json()
@@ -57,8 +55,9 @@ function UserAuthenticate(props) {
                     alert(json)
                 }
                 else {
-                    props.setUserToken(json)
-                    history.push('/')
+                    localStorage.setItem("token", json.token)
+                    localStorage.setItem("username", json.username)
+                    window.location.reload()
                 }
             })
             .catch(err => {
@@ -82,9 +81,7 @@ function UserAuthenticate(props) {
     )
 }
 
-export function Logout(props) {
-
-    const history = useHistory()
+export function Logout() {
 
     const logout = () => {
         localStorage.removeItem('token')

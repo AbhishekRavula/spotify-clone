@@ -20,7 +20,7 @@ body::-webkit-scrollbar {
     list-style-type: none;
 }
 
-#sideNav li{
+#sideNav li {
     margin-bottom: 20px;
     color: gray;
     font-weight:700;
