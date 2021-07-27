@@ -58,16 +58,20 @@ function Footer() {
 
 
     const footerPlayPause = (play) => {
-        play ? audio.play() : audio.pause()
+        if (currentSongDetails) {
+            play ? audio.play() : audio.pause()
+        }
     }
     const loopControl = (loop) => {
-        if (loop) {
-            audio.loop = true
-            setrepeat(true)
-        }
-        else {
-            audio.loop = false
-            setrepeat(false)
+        if (currentSongDetails) {
+            if (loop) {
+                audio.loop = true
+                setrepeat(true)
+            }
+            else {
+                audio.loop = false
+                setrepeat(false)
+            }
         }
     }
     const handlePlay = () => {
@@ -78,12 +82,16 @@ function Footer() {
     }
 
     const playNextSong = () => {
-        let playNext = new CustomEvent("playNext", { detail: { currentIndex: currentSongDetails.index } })
-        document.dispatchEvent(playNext)
+        if (currentSongDetails) {
+            let playNext = new CustomEvent("playNext", { detail: { currentIndex: currentSongDetails.index } })
+            document.dispatchEvent(playNext)
+        }
     }
     const playPreviousSong = () => {
-        let playNext = new CustomEvent("playPrev", { detail: { currentIndex: currentSongDetails.index } })
-        document.dispatchEvent(playNext)
+        if (currentSongDetails) {
+            let playNext = new CustomEvent("playPrev", { detail: { currentIndex: currentSongDetails.index } })
+            document.dispatchEvent(playNext)
+        }
     }
 
     useEffect(() => { // 
@@ -142,18 +150,24 @@ function Footer() {
     }
 
     const handleShuffle = () => {
-        setcurrentPlaylistShuffleList(getShuffleList(currentPlaylist.noOfSongs))
-        setshuffle(!shuffle)
+        if (currentSongDetails) {
+            setcurrentPlaylistShuffleList(getShuffleList(currentPlaylist.noOfSongs))
+            setshuffle(!shuffle)
+        }
     }
 
     return (
         <div id="footer_body">
             <div id="footer_left">
-                <img id="footer_albumCover" src={currentSongDetails && currentSongDetails.cover} alt="cover" />
-                <div id="footer_songInfo">
-                    <strong id="footer_songTitle">{currentSongDetails && currentSongDetails.name}</strong>
-                    <div id="footer_songArtists">{currentSongDetails && currentSongDetails.artists.join(", ")}</div>
-                </div>
+                {currentSongDetails ?
+                <>
+                    <img id="footer_albumCover" src={currentSongDetails && currentSongDetails.cover} alt="cover" />
+                    <div id="footer_songInfo">
+                        <strong id="footer_songTitle">{currentSongDetails && currentSongDetails.name}</strong>
+                        <div id="footer_songArtists">{currentSongDetails && currentSongDetails.artists.join(", ")}</div>
+                    </div> 
+                </>
+                    : <h4>Play any song!!</h4>}
             </div>
             <div id="footer_center">
                 <div id="footer_center_controls">
@@ -165,12 +179,12 @@ function Footer() {
                     {repeat ? <RepeatOneIcon style={{ color: "#3F51B5" }} onClick={() => loopControl(false)} /> : <RepeatIcon onClick={() => loopControl(true)} />}
                 </div>
                 <div id="footer_center_slider">
-                    <SongProgressBar currentSongdetails={currentSongDetails} />
+                    <SongProgressBar currentSongDetails={currentSongDetails} />
                 </div>
             </div>
             <div id="footer_right">
                 <Grid container className={classes.root} spacing={2}>
-                    <VolumeControl />
+                    <VolumeControl currentSongDetails={currentSongDetails}/>
                 </Grid>
             </div>
         </div>
@@ -181,23 +195,25 @@ export default Footer
 
 
 
-function VolumeControl() {
+function VolumeControl(props) {
 
     const [mute, setmute] = useState(false)
     const [seekvolume, setseekvolume] = useState(80)
     let audio = document.getElementById("globalAudio")
 
     const handleVolume = (event, newVolume) => {
-        if (newVolume) {
-            setmute(false)
-            setseekvolume(newVolume)
-            audio.volume = newVolume / 100
-            localStorage.setItem("volume", newVolume)
-        }
-        else {
-            audio.volume = 0
-            setseekvolume(0)
-            setmute(true)
+        if (props.currentSongDetails) {
+            if (newVolume) {
+                setmute(false)
+                setseekvolume(newVolume)
+                audio.volume = newVolume / 100
+                localStorage.setItem("volume", newVolume)
+            }
+            else {
+                audio.volume = 0
+                setseekvolume(0)
+                setmute(true)
+            }
         }
     }
 
@@ -215,7 +231,7 @@ function VolumeControl() {
 }
 
 
-function SongProgressBar() {
+function SongProgressBar(props) {
 
     const [seekValue, setseekValue] = useState(0);
     const [currentSongTime, setcurrentSongTime] = useState("00:00")
@@ -224,9 +240,11 @@ function SongProgressBar() {
 
     let audio = document.getElementById("globalAudio")
 
-    const handleSeek = (event, newValue) => {
-        audio.currentTime = (audio.duration / 100) * newValue
-        setseekValue(newValue);
+    const handleSeek = (event, newValue, currentSongDetails) => {
+        if (currentSongDetails) {
+            audio.currentTime = (audio.duration / 100) * newValue
+            setseekValue(newValue);
+        }
     }
 
     const getMinSec = (seconds) => {
@@ -272,7 +290,7 @@ function SongProgressBar() {
             <div id="seekbar">
                 <Grid container>
                     <Grid item xs>
-                        <Slider value={seekValue} onChange={handleSeek} aria-labelledby="continuous-slider" />
+                        <Slider value={seekValue} onChange={(e, newValue) => handleSeek(e, newValue, props.currentSongDetails)} aria-labelledby="continuous-slider" />
                     </Grid>
                 </Grid>
             </div>
