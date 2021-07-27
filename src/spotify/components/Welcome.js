@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../styles/Welcome.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AllPlaylists from './AllPlaylists';
@@ -26,8 +26,6 @@ function UpNav() {
 
 
 function WelcomeHome() {
-
-    console.log(process.env)
 
     return (
         <Router>

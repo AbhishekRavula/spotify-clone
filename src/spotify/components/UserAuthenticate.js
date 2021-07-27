@@ -23,8 +23,8 @@ function UserAuthenticate(props) {
 
 
     function login() {
-
-        fetch(process.env.HOSTNAME + 'token/', requestOptions)
+        
+        fetch(HOSTNAME + 'token/', requestOptions)
             .then(response => {
                 return response.json()
             })
