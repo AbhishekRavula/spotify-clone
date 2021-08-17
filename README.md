@@ -1,70 +1,40 @@
-# Getting Started with Create React App
+## To Run Code:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+-> Create account at https://www.themoviedb.org/account/signup
 
-## Available Scripts
+-> Create an API-KEY from https://www.themoviedb.org/settings/api
 
-In the project directory, you can run:
+-> Set API-KEY as environment variable as below
 
-### `npm start`
+-> Command prompt `set "REACT_APP_MOVIE_DATABASE_API_KEY = YOUR_API_KEY" && NPM START` to start the server
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+-> That's it to get on running the code
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## To Test Code:
 
-### `npm test`
+-> You can view the upcoming latest movies on home page and on clicking on a movie it will navigate to movie detail page
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-> Implemented infinite scrolling, test it by scrolling the page to the bottom
 
-### `npm run build`
+-> Search any movie on the search input to get the desired results
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+-> Test the responsiveness of page by changing the window size
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Things That I Did Well:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Managing state by using react-redux state management library:
 
-### `npm run eject`
+Passing state between components is complex in react. By using react-redux, it can be made easy by the use of redux global store to store the state of the component and can
+access them for any child component.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Responsiveness of the page:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Using Grid columns with auto fill and min-max will have a responsive page of movie cards.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Handling of asynchronous API calls by using redux-thunk:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+In redux, when an action creator returns a function, it function will get executed by the Redux Thunk middleware. This function doesn't need to be pure, it is thus allowed to have side effects, including executing asynchronous API calls and function can also dispatch actions.
 
-## Learn More
+### If I had more time:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I would improve the state management and improve response of the page.
