@@ -1,1 +1,1 @@
-export const HOSTNAME = "https://spotifyclonebackend.herokuapp.com/"
+export const HOSTNAME = process.env.REACT_APP_HOSTNAME

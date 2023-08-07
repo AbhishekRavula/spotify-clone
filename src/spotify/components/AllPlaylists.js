@@ -30,7 +30,7 @@ function AllPlaylists() {
 
     return (
         <Grid>
-            {AllPlaylistData.map(playlist => {
+            {!!AllPlaylistData?.length && AllPlaylistData.map(playlist => {
                 return <Playlist key={playlist.id} {...playlist} />
             })}
         </Grid>

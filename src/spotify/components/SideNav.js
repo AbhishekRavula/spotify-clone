@@ -100,7 +100,7 @@ function SideNav() {
             </ul>
             <hr style={{ color: "rgb(255, 255, 255)", marginLeft: "25px", marginRight: "25px" }} />
             <ul id="sideNav">
-                {userPlaylistNames && userPlaylistNames.map(playlist => {
+                {!!userPlaylistNames?.length && userPlaylistNames.map(playlist => {
                     return <li key={playlist.id} onContextMenu={(e) => handlePlaylistContextMenu(e, playlist.id)}
                         style={{ fontWeight: "600" }}
                         onClick={() => history.push(`/playlists/${playlist.id}`)}>{playlist.name}</li>
