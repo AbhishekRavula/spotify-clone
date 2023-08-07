@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useHistory, Redirect } from 'react-router-dom';
 import '../styles/Welcome.css'
 import Button from '@material-ui/core/Button';
 import { HOSTNAME } from '../spotify.constants.js'
@@ -12,7 +11,7 @@ function UserAuthenticate() {
 
     const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Token f56de93c012b18a4b85e65f41bef2f235fd2dbab' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Token ${localStorage.getItem('token')}`},
         body: JSON.stringify({
             username: username,
             password: password
@@ -45,8 +44,9 @@ function UserAuthenticate() {
 
 
     const register = () => {
+        delete requestOptions.headers.Authorization;
 
-        fetch( HOSTNAME + 'users/', requestOptions)
+        fetch(HOSTNAME + 'users/', requestOptions)
             .then(response => {
                 return response.json()
             })
