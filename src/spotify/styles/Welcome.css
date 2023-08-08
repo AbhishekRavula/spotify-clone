@@ -10,10 +10,8 @@ body::-webkit-scrollbar {
 }
 
 #sideNav_logo {
-    object-fit: contain;
-    height: 70px;
-    padding: 10px;
-    margin-right: auto;
+    margin: 30px 0px;
+    width: 150px;
 }
 
 #sideNav {

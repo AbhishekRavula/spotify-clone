@@ -7,6 +7,7 @@ import LibraryMusicRoundedIcon from '@material-ui/icons/LibraryMusicRounded';
 import PlaylistAddRoundedIcon from '@material-ui/icons/PlaylistAddRounded';
 import FavoriteRoundedIcon from '@material-ui/icons/FavoriteRounded';
 import { HOSTNAME } from '../spotify.constants.js'
+import logo from "../../assets/musify-logo.png"
 
 
 let useClickOutside = (handler) => { // custom hook defination
@@ -91,7 +92,7 @@ function SideNav() {
     return (
         <div id="left_nav">
             <ul id="sideNav">
-                <li onClick={() => history.push('/')}><img id="sideNav_logo" src="http://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg" alt="logo"></img></li>
+                <li onClick={() => history.push('/')}><img id="sideNav_logo" src={logo} alt='logo'/></li>
                 <li onClick={() => history.push('/')}><HomeRoundedIcon /> Home</li>
                 <li onClick={() => history.push('/search')}><SearchRoundedIcon /> Search</li>
                 <li onClick={() => history.push('/collection/playlists')}><LibraryMusicRoundedIcon /> Library</li>

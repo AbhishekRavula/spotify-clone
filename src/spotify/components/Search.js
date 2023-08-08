@@ -60,7 +60,7 @@ function Search(props) {
                 <input id="field" type="text" placeholder="Search Songs.."
                     value={searchTerm} onKeyDown={handleKeyDown}
                     onChange={(event) => { setsearchTerm(event.target.value) }} />
-                {searchTerm.length > 0 && musicData.filter((song) => {
+                {searchTerm.length > 0 && !!musicData?.length && musicData.filter((song) => {
                     if (searchTerm === "") {
                         return song
                     }

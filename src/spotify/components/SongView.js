@@ -145,7 +145,7 @@ function Song(props) {
     return (
         <div id="song">
             <div id="numberOrIcon">
-                {isPlaying ? <img width="15" src="https://open.scdn.co/cdn/images/equaliser-animated-green.73b73928.gif"
+                {isPlaying ? <img width="15" src="https://cutewallpaper.org/21/music-equalizer-gif/Equalizer-by-Alexander-Stets-on-Dribbble.gif"
                     alt="playingGif" /> : props.index}
             </div>
             <div id="songNamenArtists" onClick={onSongClick}>

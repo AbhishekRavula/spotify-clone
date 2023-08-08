@@ -124,12 +124,12 @@ function PlaylistView(props) {
             <div>
                 {musicData.map((song, index) => {
                     return (
-                        <div>
-                            <Song song={song} index={index + 1} noOfSongs={musicData.length} updateMusicData={updateMusicData} />
+                        <div key={index}>
+                            <Song song={song}  index={index + 1} noOfSongs={musicData.length} updateMusicData={updateMusicData} />
                         </div>
                     )
                 })}
-                {props.created_by !== 'SpotifyAdmin' && <h5>Let's Find Some Songs For Your Playlist</h5>}
+                {props.created_by !== 'SpotifyAdmin' && <h5 className='mt-4'>Let's Find Some Songs For Your Playlist</h5>}
                 <EditPlaylistDetailsModal image={playlistData && playlistData.image} setPlaylistDescription={setPlaylistDescription} open={open} handleOpen={handleOpen} handleClose={handleClose}
                     setPlaylistName={setPlaylistName} savePlaylistDetails={savePlaylistDetails} {...playlistData} />
                 {props.created_by !== 'SpotifyAdmin' && <Search add={true} {...props} updateMusicData={updateMusicData} />}

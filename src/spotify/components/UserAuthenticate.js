@@ -68,13 +68,15 @@ function UserAuthenticate() {
 
     return (
         <div id="userAuthenticate">
-            <strong>To Continue, Please Login or Register to SpotifyClone</strong><br />
-            <label>Username</label><br />
+            <div className='mb-2'>
+                <strong className='text-white'>To Continue, Please Login or Register to Musify</strong><br />
+            </div>
+            <label className='text-white mb-2'>Username</label><br />
             <input type='text' name='username' onChange={e => setusername(e.target.value)} /><br />
-            <label>Password</label><br />
+            <label className='text-white mb-2'>Password</label><br />
             <input type='password' name='password' onChange={e => setpassword(e.target.value)} /><br />
-            <div style={{ display: 'flex', justifyContent: "space-between" }}>
-                <Button variant="contained" size="small" onClick={login}>login</Button>
+            <div style={{ display: 'flex', justifyContent: "space-between" }} className='mt-2'>
+                <Button variant="contained" size="small"  onClick={login}>login</Button>
                 <Button variant="contained" size="small" onClick={register}>Register</Button>
             </div>
         </div>
